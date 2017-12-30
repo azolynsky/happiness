@@ -1,15 +1,17 @@
 import React from 'react'
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { forEach, sumBy } from 'lodash'
+
 import Header from './components/header'
+import Store from './components/store'
+
 import StoreItems from './data/storeItems'
 
 export default class App extends React.PureComponent {
   constructor() {
     super()
-    this.buyButtonColor = this.buyButtonColor.bind(this)
     this.state = {
-      happiness: 0,
+      happiness: 10,
       fps: 60,
       happinessPerSecond: function(){
         return sumBy(this.items, function(item) {
@@ -24,10 +26,6 @@ export default class App extends React.PureComponent {
     this.setState((prevState, props) => ({
       happiness: prevState.happiness + this.state.happinessPerSecond()/10 + 1
     }))
-  }
-
-  buyButtonColor = (item) => {
-    return item.cost() <= this.state.happiness? 'black' : 'gray'
   }
 
   buyItem = (key) => {
@@ -58,15 +56,12 @@ export default class App extends React.PureComponent {
   }
 
   render() {
-    let store = this.state.items.map((item, key) => {
-      return (<Button key={key} color={this.buyButtonColor(item)} onPress={() => this.buyItem(key)} title={item.name}></Button>)
-    }, this)
-
     return (
       <View style={styles.container}>
-        <Text>Wow you're so happy!</Text>
-        <Header onPressHappinessButton={this.onPressHappinessButton.bind(this)} happiness={Math.round(this.state.happiness)}></Header>
-        {store}
+        <View style={{flex: 1, justifyContent:'center'}}>
+        </View>
+        <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)}></Header>
+        <Store items={this.state.items} happiness={this.state.happiness} buyItem={this.buyItem}></Store>
       </View>
     )
   }
@@ -79,7 +74,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  disabled: {
-    backgroundColor: '#555'
-  }
 });
