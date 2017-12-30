@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { forEach, sumBy } from 'lodash'
 import Header from './components/header'
+import StoreItems from './data/storeItems'
 
 export default class App extends React.Component {
   constructor() {
@@ -15,32 +16,7 @@ export default class App extends React.Component {
           return item.owned * item.value
         })
       },
-      items: [
-        {
-          name: 'butts',
-          value: 10,
-          owned: 0,
-          cost: 50
-        },
-        {
-          name: 'stuff',
-          value: 3,
-          owned: 1,
-          cost: 10
-        },
-        {
-          name: 'and',
-          value: 10,
-          owned: 0,
-          cost: 500
-        },
-        {
-          name: 'more',
-          value: 3,
-          owned: 1,
-          cost: 100
-        },
-      ]
+      items: [...StoreItems]
     }
   }
 

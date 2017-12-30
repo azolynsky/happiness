@@ -16,5 +16,6 @@ export default class Header extends React.Component {
 const styles = StyleSheet.create({
   header: {
     fontSize: 100,
+    fontFamily: 'Helvetica Neue'
   }
 })
