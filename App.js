@@ -4,7 +4,7 @@ import { forEach, sumBy } from 'lodash'
 import Header from './components/header'
 import StoreItems from './data/storeItems'
 
-export default class App extends React.Component {
+export default class App extends React.PureComponent {
   constructor() {
     super()
     this.buyButtonColor = this.buyButtonColor.bind(this)
@@ -27,15 +27,19 @@ export default class App extends React.Component {
   }
 
   buyButtonColor = (item) => {
-    return item.cost <= this.state.happiness? 'black' : 'gray'
+    return item.cost() <= this.state.happiness? 'black' : 'gray'
   }
 
   buyItem = (key) => {
+    let cost = this.state.items[key].cost()
+    if (cost > this.state.happiness) return
+
     this.setState((prevState) => {
       let newState = this.state.items.slice()
       newState[key].owned++
       return {
-        items: newState
+        items: newState,
+        happiness: prevState.happiness - cost
       }
     })
   }
