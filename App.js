@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { forEach, sumBy } from 'lodash'
+import { clone, forEach, map, sumBy } from 'lodash'
 
 import Header from './components/header'
 import Store from './components/store'
@@ -12,7 +12,10 @@ export default class App extends React.PureComponent {
     super()
     this.state = {
       happiness: 10,
+      lifetimeHappiness: 10,
       fps: 60,
+      totalTime: 259200, // 3 days (in seconds)
+      remainingTime: 259200,
       happinessPerSecond: function(){
         return sumBy(this.items, function(item) {
           return item.owned * item.value
@@ -33,7 +36,7 @@ export default class App extends React.PureComponent {
     if (cost > this.state.happiness) return
 
     this.setState((prevState) => {
-      let newState = this.state.items.slice()
+      let newState = map(this.state.items, clone)
       newState[key].owned++
       return {
         items: newState,
@@ -44,7 +47,8 @@ export default class App extends React.PureComponent {
 
   tick = () => {
     this.setState((prevState, props) => ({
-      happiness: prevState.happiness + (this.state.happinessPerSecond() / this.state.fps)
+      happiness: prevState.happiness + (this.state.happinessPerSecond() / this.state.fps),
+      remainingTime: prevState.remainingTime - (1 / this.state.fps)
     }))
   }
 
@@ -59,6 +63,7 @@ export default class App extends React.PureComponent {
     return (
       <View style={styles.container}>
         <View style={{flex: 1, justifyContent:'center'}}>
+          <Text style={{fontFamily: 'Helvetica Neue'}}>{Math.round(this.state.remainingTime)} seconds remaining until you die.</Text>
         </View>
         <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)}></Header>
         <Store items={this.state.items} happiness={this.state.happiness} buyItem={this.buyItem}></Store>
