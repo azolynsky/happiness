@@ -59,10 +59,14 @@ you fell in love! she's your best friend and makes you a better person.
 
 you got married!
 
+you had your first child! a girl. she's perfect. you've never been so happy.
+
+you had another baby! you start to worry about money a little bit. maybe you should get a new job.
+
 your wife isn't looking so great lately... also, that young waitress gave you an extra slice of pie...
 you did it. you divorced your wife and married for looks. I guess that made you kind of happy...
 
-you got a better job! it requires more hours, and it's a lot more responsibility, but it pays really well!
+you got a better job! it requires more hours, (and you don't see your kids as much : and it's a lot more responsibility), but it pays really well!
 
 you're retired! you can do all the things you dreamed of when you (and your first wife) were young. you don't have a lot of energy anymore but that's ok.
 you're in Bermuda! a lot of the people here are impoverished. you ignore it. your happiness rises!
