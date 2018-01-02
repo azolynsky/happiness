@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Button, ProgressViewIOS, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { clone, forEach, map, sumBy } from 'lodash'
 
 import Header from './components/header'
@@ -14,8 +14,11 @@ export default class App extends React.PureComponent {
       happiness: 10,
       lifetimeHappiness: 10,
       fps: 60,
-      totalTime: 259200, // 3 days (in seconds)
-      remainingTime: 259200,
+      totalTime: 500, // (in seconds)
+      remainingTime: 500,
+      timeProgressedPercentage: function(){
+        return (this.totalTime-this.remainingTime)/this.totalTime
+      },
       happinessPerSecond: function(){
         return sumBy(this.items, function(item) {
           return item.owned * item.value
@@ -63,6 +66,7 @@ export default class App extends React.PureComponent {
     return (
       <View style={styles.container}>
         <View style={{flex: 1, justifyContent:'center'}}>
+          <ProgressViewIOS progressTintColor='#aa0000' progress={this.state.timeProgressedPercentage()}></ProgressViewIOS>
           <Text style={{fontFamily: 'Helvetica Neue'}}>{Math.round(this.state.remainingTime)} seconds remaining until you die.</Text>
         </View>
         <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)}></Header>
