@@ -4,8 +4,9 @@ export default class StoreItem {
     this.value = value
     this.baseCost = baseCost
     this.owned = 0
-    this.cost = () => {
-      return Math.floor(this.baseCost * Math.pow(1.15, this.owned))
-    }
+  }
+
+  cost () {
+    return Math.floor(this.baseCost * Math.pow(1.15, this.owned))
   }
 }
