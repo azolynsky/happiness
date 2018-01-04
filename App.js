@@ -66,9 +66,12 @@ export default class App extends React.PureComponent {
     return (
       <View style={styles.container}>
         <View style={{flex: 1, justifyContent:'center'}}>
-          <ProgressViewIOS progressTintColor='#aa0000' progress={this.state.timeProgressedPercentage()}></ProgressViewIOS>
-          <Text style={{fontFamily: 'Helvetica Neue'}}>{Math.round(this.state.remainingTime)} seconds remaining until you die.</Text>
         </View>
+        <View>
+          <Text style={{fontFamily: 'Helvetica Neue'}}>{Math.round(this.state.remainingTime)} seconds remaining until you die.</Text>
+          <ProgressViewIOS progressTintColor='#aa0000' progress={this.state.timeProgressedPercentage()}></ProgressViewIOS>
+        </View>
+        <Text>Wow you're so happy!</Text>
         <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)}></Header>
         <Store items={this.state.items} happiness={this.state.happiness} buyItem={this.buyItem}></Store>
       </View>

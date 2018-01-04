@@ -4,10 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 export default class Header extends React.PureComponent {
   render() {
     return (
-      <View style={{alignItems:'center', justifyContent:'center'}}>
-        <Text>Wow you're so happy!</Text>
         <TouchableOpacity onPress={this.props.onPressHappinessButton}><Text style={styles.header}>{this.props.happiness}</Text></TouchableOpacity>
-      </View>
     )
   }
 }
