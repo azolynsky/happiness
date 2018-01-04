@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, ProgressViewIOS, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { clone, forEach, map, sumBy } from 'lodash'
+import { cloneDeep, flatten, forEach, map, mapValues, sumBy } from 'lodash'
 
 import Header from './components/header'
 import Store from './components/store'
@@ -20,7 +20,7 @@ export default class App extends React.PureComponent {
         return (this.totalTime-this.remainingTime)/this.totalTime
       },
       happinessPerSecond: function(){
-        return sumBy(this.items, function(item) {
+        return sumBy(flatten(this.items), function(item) {
           return item.owned * item.value
         })
       },
@@ -35,12 +35,12 @@ export default class App extends React.PureComponent {
   }
 
   buyItem = (key) => {
-    let cost = this.state.items[key].cost()
+    let cost = this.state.items[0][key].cost()
     if (cost > this.state.happiness) return
 
     this.setState((prevState) => {
-      let newState = map(this.state.items, clone)
-      newState[key].owned++
+      let newState = map(prevState.items, cloneDeep)
+      newState[0][key].owned++
       return {
         items: newState,
         happiness: prevState.happiness - cost
@@ -73,7 +73,7 @@ export default class App extends React.PureComponent {
         </View>
         <Text>Wow you're so happy!</Text>
         <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)}></Header>
-        <Store items={this.state.items} happiness={this.state.happiness} buyItem={this.buyItem}></Store>
+        <Store items={this.state.items[0]} happiness={this.state.happiness} buyItem={this.buyItem}></Store>
       </View>
     )
   }
