@@ -1,3 +1,4 @@
+
 export default class StoreItem {
   constructor (name, value, baseCost, shouldDisplay) {
     this.name = name
