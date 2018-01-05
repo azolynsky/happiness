@@ -6,6 +6,7 @@ import Header from './components/header'
 import Store from './components/store'
 
 import StoreItems from './data/storeItems'
+import EventMessages from './data/eventMessages'
 
 export default class App extends React.PureComponent {
   constructor() {
@@ -16,30 +17,31 @@ export default class App extends React.PureComponent {
       fps: 60,
       totalTime: 500, // (in seconds)
       remainingTime: 500,
-      eventMessages: [
-        {
-          text: "You're not very happy. Try tapping that 0.",
-          shouldAppear: (state) => state.happiness === 0
-        },
-        {
-          text: "You're becoming happier!",
-          shouldAppear: (state) => state.happiness > 0
-        },
-        {
-          text: "Oh now you're getting really happy!",
-          shouldAppear: (state) => state.happiness >= 15
-        },
-        {
-          text: "Look a pacifier! I bet that would make you really happy. You should buy it.",
-          shouldAppear: (state) => state.items[0][0].owned === 0 && state.happiness >= 30
-        },
-        {
-          text: "The pacifier is making you happy!",
-          shouldAppear: (state) => state.items[0][0].owned === 1
-        },
-      ],
+      eventMessages: EventMessages,
+      // [
+      //   {
+      //     text: "You're not very happy. Try tapping that 0.",
+      //     shouldDisplay: (state) => state.happiness === 0
+      //   },
+      //   {
+      //     text: "You're becoming happier!",
+      //     shouldDisplay: (state) => state.happiness > 0
+      //   },
+      //   {
+      //     text: "Oh now you're getting really happy!",
+      //     shouldDisplay: (state) => state.happiness >= 15
+      //   },
+      //   {
+      //     text: "Look a pacifier! I bet that would make you really happy. You should buy it.",
+      //     shouldDisplay: (state) => state.items[0][0].owned === 0 && state.happiness >= 30
+      //   },
+      //   {
+      //     text: "The pacifier is making you happy!",
+      //     shouldDisplay: (state) => state.items[0][0].owned === 1
+      //   },
+      // ],
       eventMessage: function(state){
-        let message = (findLast(this.eventMessages, function(em){ return em.shouldAppear(state) }).text)
+        let message = (findLast(this.eventMessages, function(em){ return em.shouldDisplay(state) }).text)
         return message
       },
       timeProgressedPercentage: function(){
