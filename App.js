@@ -1,7 +1,8 @@
 import React from 'react'
-import { Button, ProgressViewIOS, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Animated, Button, ProgressViewIOS, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { cloneDeep, findLast, flatten, forEach, map, mapValues, sumBy } from 'lodash'
 
+import EventMessage from './components/eventMessage'
 import Header from './components/header'
 import Store from './components/store'
 
@@ -18,28 +19,6 @@ export default class App extends React.PureComponent {
       totalTime: 500, // (in seconds)
       remainingTime: 500,
       eventMessages: EventMessages,
-      // [
-      //   {
-      //     text: "You're not very happy. Try tapping that 0.",
-      //     shouldDisplay: (state) => state.happiness === 0
-      //   },
-      //   {
-      //     text: "You're becoming happier!",
-      //     shouldDisplay: (state) => state.happiness > 0
-      //   },
-      //   {
-      //     text: "Oh now you're getting really happy!",
-      //     shouldDisplay: (state) => state.happiness >= 15
-      //   },
-      //   {
-      //     text: "Look a pacifier! I bet that would make you really happy. You should buy it.",
-      //     shouldDisplay: (state) => state.items[0][0].owned === 0 && state.happiness >= 30
-      //   },
-      //   {
-      //     text: "The pacifier is making you happy!",
-      //     shouldDisplay: (state) => state.items[0][0].owned === 1
-      //   },
-      // ],
       eventMessage: function(state){
         let message = (findLast(this.eventMessages, function(em){ return em.shouldDisplay(state) }).text)
         return message
@@ -100,7 +79,7 @@ export default class App extends React.PureComponent {
           <ProgressViewIOS progressTintColor='#aa0000' progress={this.state.timeProgressedPercentage()}></ProgressViewIOS>
         </View>
         <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)}></Header>
-        <Text style={styles.eventMessage}>{this.state.eventMessage(this.state)}</Text>
+        <EventMessage message={this.state.eventMessage(this.state)}></EventMessage>
         <Store items={this.state.items[0]} happiness={this.state.happiness} buyItem={this.buyItem}></Store>
       </View>
     )
