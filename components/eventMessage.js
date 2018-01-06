@@ -48,7 +48,7 @@ export default class EventMessage extends React.PureComponent {
 
 const styles = StyleSheet.create({
   eventMessage: {
-    color: 'red',
+    color: '#aa0000',
     fontSize: 18
   }
 });

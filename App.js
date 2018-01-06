@@ -16,8 +16,8 @@ export default class App extends React.PureComponent {
       happiness: 0,
       lifetimeHappiness: 0,
       fps: 60,
-      totalTime: 500, // (in seconds)
-      remainingTime: 500,
+      totalTime: 3, // (in seconds)
+      remainingTime: 3,
       eventMessages: EventMessages,
       eventMessage: function(state){
         let message = (findLast(this.eventMessages, function(em){ return em.shouldDisplay(state) }).text)
@@ -60,10 +60,14 @@ export default class App extends React.PureComponent {
       happiness: prevState.happiness + (this.state.happinessPerSecond() / this.state.fps),
       remainingTime: prevState.remainingTime - (1 / this.state.fps)
     }))
+    if (this.state.remainingTime <= 0){
+      clearInterval(this.timer)
+      alert('you died. fuck you.')
+    }
   }
 
   componentDidMount() {
-    this.timerID = setInterval(
+    this.timer = setInterval(
       () => this.tick(),
       1000 / this.state.fps
     )
@@ -93,8 +97,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  eventMessage: {
-    color: 'red',
-    fontSize: 18
-  }
 });
