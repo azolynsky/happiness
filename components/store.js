@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ScrollView, Text, View } from 'react-native'
+import { Button, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 export default class Store extends React.Component {
   shouldComponentUpdate(nextProps) {
@@ -31,14 +31,12 @@ export default class Store extends React.Component {
 
     for (let key in this.props.items) {
       let item = this.props.items[key]
-      //if (item.owned == 0){
-        store.push(
-          <View style={{alignItems:'center'}}>
-            <Button key={key} color={this.buyButtonColor(item)} onPress={() => this.buyPressed(key)} title={`${item.name}`}></Button>
-            <Text style={{color: this.buyButtonColor(item)}}>{item.description}</Text>
-          </View>
-        )
-      //}
+      store.push(
+        <TouchableOpacity key={key} onPress={() => this.buyPressed(key)} style={{alignItems:'center'}}>
+          <Text style={{fontSize: 20, fontWeight:'bold', color: this.buyButtonColor(item)}}>{item.cost()} 🙂 {item.name}</Text>
+          <Text style={{color: this.buyButtonColor(item)}}>{item.description}</Text>
+        </TouchableOpacity>
+      )
     }
 
     return (

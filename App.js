@@ -1,6 +1,6 @@
 import React from 'react'
 import { Animated, Button, ProgressViewIOS, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { cloneDeep, findLast, flatten, forEach, map, mapValues, sumBy } from 'lodash'
+import { cloneDeep, findLast, flatten, forEach, map, mapValues, pickBy, sumBy } from 'lodash'
 
 import EventMessage from './components/eventMessage'
 import Header from './components/header'
@@ -13,7 +13,7 @@ export default class App extends React.PureComponent {
   constructor() {
     super()
     this.state = {
-      happiness: 1000,
+      happiness: 0,
       lifetimeHappiness: 0,
       fps: 60,
       totalTime: 300, // (in seconds)
@@ -129,7 +129,7 @@ export default class App extends React.PureComponent {
         </View> */}
         <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)}></Header>
         <EventMessage message={this.state.eventMessage(this.state)}></EventMessage>
-        <Store items={this.state.items[this.state.level]} happiness={this.state.happiness} buyItem={this.buyItem}></Store>
+        <Store items={pickBy(this.state.items[this.state.level], (i) => {return i.owned === 0} )} happiness={this.state.happiness} buyItem={this.buyItem}></Store>
       </View>
     )
   }
