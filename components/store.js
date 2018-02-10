@@ -1,11 +1,15 @@
 import React from 'react'
-import { Button, ScrollView } from 'react-native'
+import { Button, ScrollView, Text, View } from 'react-native'
 
 export default class Store extends React.Component {
   shouldComponentUpdate(nextProps) {
-    for (let i = 0; i < nextProps.items.length; i++){
-      let oldCanAfford = this.props.items[i].cost() <= this.props.happiness
-      let newCanAfford = nextProps.items[i].cost() <= nextProps.happiness
+    for (let key in this.props.items){
+      // if the store removed a product, return true
+      if (!!nextProps.items[key] == false)
+        return true
+
+      let oldCanAfford = this.props.items[key].cost() <= this.props.happiness
+      let newCanAfford = nextProps.items[key].cost() <= nextProps.happiness
 
       if (newCanAfford != oldCanAfford)
         return true
@@ -23,9 +27,19 @@ export default class Store extends React.Component {
   }
 
   render() {
-    let store = this.props.items.map((item, key) => {
-      return (<Button key={key} color={this.buyButtonColor(item)} onPress={() => this.buyPressed(key)} title={`${item.name}`}></Button>)
-    }, this)
+    let store = []
+
+    for (let key in this.props.items) {
+      let item = this.props.items[key]
+      //if (item.owned == 0){
+        store.push(
+          <View style={{alignItems:'center'}}>
+            <Button key={key} color={this.buyButtonColor(item)} onPress={() => this.buyPressed(key)} title={`${item.name}`}></Button>
+            <Text style={{color: this.buyButtonColor(item)}}>{item.description}</Text>
+          </View>
+        )
+      //}
+    }
 
     return (
       <ScrollView style={{flex: 1, marginBottom: 30, width:'100%'}}>

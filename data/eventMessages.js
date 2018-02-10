@@ -1,11 +1,16 @@
 import EventMessage from '../models/eventMessage'
 
 export default [
-    new EventMessage("You're not very happy. Try tapping that 0.", (state) => state.happiness === 0),
+    new EventMessage("Congratulations, and welcome to the Pursuit of Happiness!", (state) => true),
+    new EventMessage("You're not very happy. Try tapping that 0.", (state) => state.happiness === 0 && state.elapsedTime > 3),
     new EventMessage("You're becoming happier!", (state) => state.happiness > 0),
     new EventMessage("Oh now you're getting really happy!", (state) => state.happiness >= 15),
-    new EventMessage("Look a pacifier! I bet that would make you really happy. You should buy it.", (state) => state.items[0][0].owned === 0 && state.happiness >= 30),
-    new EventMessage("The pacifier is making you happy!", (state) => state.items[0][0].owned === 1),
+    new EventMessage("Look a pacifier! I bet that would make you really happy. You should buy it.", (state) => state.items[0]['pacifier'].owned === 0 && state.happiness >= state.items[0]['pacifier'].cost()),
+    new EventMessage("The Pacifier is making you happy!", (state) => state.items[0]['pacifier'].owned === 1),
+    new EventMessage("Your Blankie keeps you warm and snuggly. At night, it makes you so happy!", (state) => state.items[0]['blankie'].owned === 1),
+    new EventMessage("You can almost afford a Bottle!", (state) => state.happiness > state.items[0]['bottle'].cost()/2),
+    new EventMessage("Milk Bottles make you big and strong! You'll be a Big Kid in no time!", (state) => state.items[0]['bottle'].owned === 1),
+    new EventMessage("You're a Big Kid now!  Get rid of that baby Pacifier and play with cool toys!", (state) => state.items[0]['bigKid'].owned === 1),
 ]
 
 /*

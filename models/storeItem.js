@@ -1,15 +1,11 @@
 
 export default class StoreItem {
-  constructor (name, value, baseCost, shouldDisplay) {
-    this.name = name
-    this.value = value
-    this.baseCost = baseCost
+  constructor (name, description, baseCost, singletonFunction = () => { return }) {
     this.owned = 0
-    this._shouldDisplay = shouldDisplay
-  }
-
-  shouldDisplay (currentHappiness) {
-    return this._shouldDisplay(currentHappiness)
+    this.name = name
+    this.description = description
+    this.baseCost = baseCost
+    this.singletonFunction = singletonFunction
   }
 
   cost () {

@@ -1,31 +1,47 @@
+import React from 'react'
 import StoreItem from '../models/storeItem'
+import { cloneDeep, findLast, flatten, forEach, map, mapValues, sumBy } from 'lodash'
 
-export default [
-  // maybe instead of getting more of these, upgrade some of them. money can go up, but career and spouse can get better
-  [
-    new StoreItem('Pacifier', 1, 10),
-    new StoreItem('Milk Bottle', 2, 100),
-    new StoreItem('Be a Big Kid', 1, 1000),
-  ],
-  [
-    new StoreItem('Candy', 50, 11000),
-    new StoreItem('Comics', 500, 120000),
-    new StoreItem('Baseball Mitt', 2, 100),
-    new StoreItem('Bicycle', 8, 500),
-  ],
-  [
-    new StoreItem('Sex', 1, 1000),
-    new StoreItem('Drugs', 1, 1000),
-    new StoreItem('Money', 1, 1000),
-  ],
-  [
-    new StoreItem('Career', 1, 1000),
-    new StoreItem('Spouse', 1, 1000),
-    new StoreItem('House', 1, 1000),
-    new StoreItem('Child', 1, 1000),
-  ],
-  [
-    new StoreItem('Retirement', 1, 1000),
-    new StoreItem('Travel', 1, 1000),
-  ]
-]
+export default items = {
+  0: {
+    'pacifier':   new StoreItem('Pacifier', '+1 Happiness/sec', 10),
+    'blankie':    new StoreItem('Blankie', '+2 Happiness/sec at night', 100),
+    'bottle':     new StoreItem('Bottle', 'Lowers cost to be a Big Kid', 200, (prevState) => {
+      let newStateItems = map(prevState.items, cloneDeep)
+      newStateItems[0]['bigKid'].baseCost = 300
+      return { items: newStateItems }
+    }),
+    'bigKid':     new StoreItem('Be a Big Kid', 'Level up!', 3000, (prevState) => { return { level: 1 } })
+  },
+  1: {
+    'toys':       new StoreItem('Toys', '+2 Happiness per click', 400),
+    'friend':     new StoreItem('Make a Friend', 'Double Happiness per click', 400),
+    'candy':      new StoreItem('Candy', '4x Happiness per click for 1 hour', 400),
+    'school':     new StoreItem('Go to School', 'Level up!', 400)
+  },
+  2: {
+    'videoGames': new StoreItem('Video Games', 'Each click gains XP as well', 400),
+    'allowance':  new StoreItem('Allowance', 'If you would gain 1 Happiness, instead gain 4 Money (toggle)', 400),
+    'bike':       new StoreItem('Bike', '+100 Happiness per second', 400),
+    'teenager':   new StoreItem('Become a Teenager', 'Level up!', 400),
+  },
+  3: {
+    'firstJob':   new StoreItem('First Job', 'Clicking only gets you Money now', 400),
+    'girlfriend': new StoreItem('Girlfriend', '+1000 Happiness per second', 400),
+    'car':        new StoreItem('Car', 'For every 10 Money you spend, gain 1 Happiness per second', 400),
+    'college':    new StoreItem('Go to College', 'Level up!', 400)
+  },
+  4: {
+    'secondJob':  new StoreItem('Second Job', '2x Money per click', 400),
+    'habit':      new StoreItem('Develop a Habit', 'If you would gain 1 Money, instead gain 4 Happiness', 400), // warning: paradox if this and allowance are active.
+    'collegeFriend': new StoreItem('Make a new College Friend', 'Double Happiness per second', 400),
+    'graduate':   new StoreItem('Graduate', 'Level up!', 400),
+  },
+  5: {
+    'career':     new StoreItem('Get a Career', '+10 Money per click. Lose all friends.', 400),
+    'getMarried': new StoreItem('Get Married', 'Double Money per click and Money per second', 400),
+    'house':      new StoreItem('Buy a House', 'If you would gain 1 Money, instead gain 4 Happiness', 400),
+    'children':   new StoreItem('Have Children', 'Double Happiness per second', 400),
+    'retire':     new StoreItem('Retire', 'Level up!', 400)
+  }
+}
