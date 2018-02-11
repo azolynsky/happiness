@@ -39,7 +39,7 @@ export default class EventMessage extends React.PureComponent {
     const opacity = this.state.opacity
 
     return (
-      <View style={{width: '100%', alignItems: 'center'}}>
+      <View style={{width: '100%', padding: 10, alignItems: 'center'}}>
         <Animated.Text style={[styles.eventMessage, {opacity}]}>{this.state.message}</Animated.Text>
       </View>
     )

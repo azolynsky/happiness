@@ -37,16 +37,6 @@ export default class App extends React.PureComponent {
     }
   }
 
-  onPressHappinessButton = () => {
-    let baseHappinessPerClick = 0, baseMoneyPerClick = 0, moneyPerClickMultiplier = 1, happinessPerClickMultiplier = 1
-
-    //TODO: make this be affected by the items you own!
-
-    this.setState((prevState, props) => ({
-      happiness: prevState.happiness + 1
-    }))
-  }
-
   buyItem = (key) => {
     let  item = this.state.items[this.state.level][key]
     let cost = item.cost()
@@ -66,35 +56,83 @@ export default class App extends React.PureComponent {
     })
   }
 
+  onPressHappinessButton = () => {
+    let happinessPerClick = 1, moneyPerClick = 1
+    let items = this.state.items
+
+    // --ADDERS--
+    //level 1
+    //toys +2
+    happinessPerClick += 2 * items[1].toys.owned
+
+    // --MULTIPLIERS--
+    //level 1
+    //friend x2
+    for (let i = 0; i < items[1].friend.owned; i++){
+      happinessPerClick = happinessPerClick * 2
+    }
+
+    //level 4
+    //secondJob x2
+    for (let i = 0; i < items[4].secondJob.owned; i++){
+      happinessPerClick = happinessPerClick * 2
+    }
+
+    //level 5
+    //career x4
+    for (let i = 0; i < items[5].career.owned; i++){
+      happinessPerClick = happinessPerClick * 4
+    }
+
+    // --REPLACEMENT EFFECTS--
+
+    // --COMMIT WORK--
+    this.setState((prevState, props) => ({
+      happiness: prevState.happiness + happinessPerClick
+    }))
+  }
+
   updateNumbers = () => {
-    let baseHappinessPerSecond = 0, baseMoneyPerSecond = 0,
-    happinessPerSecondMultiplier = 1, moneyPerSecondMultiplier = 1
+    let happinessPerSecond = 0, moneyPerSecond = 0
+    let items = this.state.items
 
     // --ADDERS--
     //level 0
-    let items = this.state.items[0]
+    //pacifier +1
+    happinessPerSecond += 1 * items[0].pacifier.owned
 
-    let item = items.pacifier
-    baseHappinessPerSecond += 1 * item.owned
-
-    item = items.blankie
+    //blankie +2 @night
     if (true){ //if it's night time somehow?
-      baseHappinessPerSecond += 2 * item.owned
+      happinessPerSecond += 2 * items[0].blankie.owned
     }
 
-    //level 1
-    items = this.state.items[1]
+    //level 2
+    //bike +100
+    happinessPerSecond += 100 * items[2].bike.owned
+
+    //level 3
+    //girlfriend +1000
+    happinessPerSecond += 1000 * items[3].girlfriend.owned
 
 
     // --MULTIPLIERS--
+    //married x2, x2
+    for (let i = 0; i < items[5].married.owned; i++){
+      happinessPerSecond = happinessPerSecond * 2
+      moneyPerSecond = moneyPerSecond * 2
+    }
 
+    //collegeFriend x2
+    for (let i = 0; i < items[4].collegeFriend.owned; i++){
+      happinessPerSecond = happinessPerSecond * 2
+    }
 
     // --REPLACEMENT EFFECTS--
 
 
     // --COMMIT WORK--
     this.setState((prevState, props) => ({
-      happiness: prevState.happiness + (baseHappinessPerSecond * happinessPerSecondMultiplier) / this.state.fps
+      happiness: prevState.happiness + (happinessPerSecond / this.state.fps)
     }))
   }
 

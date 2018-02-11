@@ -39,7 +39,7 @@ export default items = {
   },
   5: {
     'career':     new StoreItem('Get a Career', '+10 Money per click. Lose all friends.', 400),
-    'getMarried': new StoreItem('Get Married', 'Double Money per click and Money per second', 400),
+    'married':    new StoreItem('Get Married', 'Double Money per click and Money per second', 400),
     'house':      new StoreItem('Buy a House', 'If you would gain 1 Money, instead gain 4 Happiness', 400),
     'children':   new StoreItem('Have Children', 'Double Happiness per second', 400),
     'retire':     new StoreItem('Retire', 'Level up!', 400, (prevState) => { return { level: 6 } })
