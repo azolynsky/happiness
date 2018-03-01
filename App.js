@@ -13,7 +13,8 @@ export default class App extends React.PureComponent {
   constructor() {
     super()
     this.state = {
-      happiness: 0,
+      happiness: 360,
+      money: 0,
       lifetimeHappiness: 0,
       fps: 60,
       totalTime: 300, // (in seconds)

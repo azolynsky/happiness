@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 export default class Store extends React.Component {
   shouldComponentUpdate(nextProps) {
@@ -40,9 +40,18 @@ export default class Store extends React.Component {
     }
 
     return (
-      <ScrollView style={{flex: 1, marginBottom: 30, width:'100%'}}>
+      <ScrollView style={styles.store}>
         {store}
       </ScrollView>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  store: {
+    flex: 1,
+    marginBottom: 30,
+    width: '100%',
+    // backgroundColor: 'pink'
+  }
+})

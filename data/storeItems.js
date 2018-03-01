@@ -8,14 +8,14 @@ export default items = {
     'blankie':    new StoreItem('Blankie', '+2 Happiness/sec at night', 100),
     'bottle':     new StoreItem('Bottle', 'Lowers cost to be a Big Kid', 200, (prevState) => {
       let newStateItems = map(prevState.items, cloneDeep)
-      newStateItems[0]['bigKid'].baseCost = 300
+      newStateItems[0]['bigKid'].baseCost = 50
       return { items: newStateItems }
     }),
     'bigKid':     new StoreItem('Be a Big Kid', 'Level up!', 3000, (prevState) => { return { level: 1 } })
   },
   1: {
-    'toys':       new StoreItem('Toys', '+2 Happiness per click', 400),
-    'friend':     new StoreItem('Make a Friend', 'Double Happiness per click', 400),
+    'toys':       new StoreItem('Toys', '+2 Happiness per click', 300),
+    'friend':     new StoreItem('Make a Friend', 'Double Happiness per click', 1500),
     'candy':      new StoreItem('Candy', '4x Happiness per click for 1 hour', 400),
     'school':     new StoreItem('Go to School', 'Level up!', 400, (prevState) => { return { level: 2 } })
   },
