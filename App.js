@@ -4,6 +4,7 @@ import { cloneDeep, findLast, flatten, forEach, map, mapValues, pickBy, sumBy } 
 
 import EventMessage from './components/eventMessage'
 import Header from './components/header'
+import PurchasedItems from './components/purchasedItems'
 import Store from './components/store'
 
 import StoreItems from './data/storeItems'
@@ -13,7 +14,7 @@ export default class App extends React.PureComponent {
   constructor() {
     super()
     this.state = {
-      happiness: 360,
+      happiness: 660,
       money: 0,
       lifetimeHappiness: 0,
       fps: 60,
@@ -22,17 +23,10 @@ export default class App extends React.PureComponent {
       level: 0,
       elapsedTime: 0,
       eventMessages: EventMessages,
+      allowanceToggleOn: false,
       eventMessage: function(state){
         let message = (findLast(this.eventMessages, function(em){ return em.shouldDisplay(state) }).text)
         return message
-      },
-      timeProgressedPercentage: function(){
-        return (this.totalTime-this.remainingTime)/this.totalTime
-      },
-      happinessPerSecond: function(){
-        return sumBy(flatten(this.items), function(item) {
-          return item.owned * item.value
-        })
       },
       items: {...StoreItems}
     }
@@ -89,7 +83,8 @@ export default class App extends React.PureComponent {
 
     // --COMMIT WORK--
     this.setState((prevState, props) => ({
-      happiness: prevState.happiness + happinessPerClick
+      happiness: prevState.happiness + happinessPerClick,
+      money: prevState.money + moneyPerClick
     }))
   }
 
@@ -133,7 +128,8 @@ export default class App extends React.PureComponent {
 
     // --COMMIT WORK--
     this.setState((prevState, props) => ({
-      happiness: prevState.happiness + (happinessPerSecond / this.state.fps)
+      happiness: prevState.happiness + (happinessPerSecond / this.state.fps),
+      money: prevState.money + (moneyPerSecond / this.state.fps)
     }))
   }
 
@@ -157,18 +153,23 @@ export default class App extends React.PureComponent {
     )
   }
 
+  setAllowanceToggleValue = (value) => {
+    this.setState({
+      allowanceToggleOn: value
+    })
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <View style={{flex: 1, justifyContent:'center'}}>
-        </View>
         {/* <View>
           <Text style={{fontFamily: 'Helvetica Neue'}}>{Math.round(this.state.remainingTime)} seconds remaining until you die.</Text>
           <ProgressViewIOS progressTintColor='#aa0000' progress={this.state.timeProgressedPercentage()}></ProgressViewIOS>
         </View> */}
-        <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)}></Header>
-        <EventMessage message={this.state.eventMessage(this.state)}></EventMessage>
-        <Store items={pickBy(this.state.items[this.state.level], (i) => {return i.owned === 0} )} happiness={this.state.happiness} buyItem={this.buyItem}></Store>
+        <PurchasedItems allowanceToggleValue={this.state.allowanceToggleOn} allowanceToggleCallback={this.setAllowanceToggleValue} items={pickBy({...this.state.items[0], ...this.state.items[1], ...this.state.items[2], ...this.state.items[3]}, (i) => {return i.owned > 0} )} />
+        <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)} />
+        <EventMessage message={this.state.eventMessage(this.state)} />
+        <Store items={pickBy(this.state.items[this.state.level], (i) => {return i.owned === 0} )} happiness={this.state.happiness} buyItem={this.buyItem} />
       </View>
     )
   }
@@ -180,5 +181,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    // backgroundColor: 'pink'
   },
 });
