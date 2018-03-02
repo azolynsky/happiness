@@ -11,22 +11,25 @@ export default class PurchasedItems extends React.PureComponent {
     })
 
     return (
-      <Text style={styles.owned}>
-        {items}
+      <View style={styles.container}>
+        <Text style={styles.text}>
+          {items}
+        </Text>
         <Switch value={this.props.allowanceToggleValue} onValueChange={(value) => this.props.allowanceToggleCallback(value)} />
-      </Text>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  owned: {
+  container: {
     flex: 1,
-    fontSize: 50,
-    width: 200,
-    fontFamily: 'Helvetica Neue',
+    width: 250,
     paddingTop: 30,
     // backgroundColor: 'yellow',
-    textAlign: 'center'
+  },
+  text: {
+    fontSize: 50,
+    textAlign: 'center',
   }
 })
