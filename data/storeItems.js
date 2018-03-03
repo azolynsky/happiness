@@ -21,7 +21,7 @@ export default items = [
   },
   {
     'videoGames': new StoreItem('Video Games', 'Each click gains XP as well', 400),
-    'allowance':  new StoreItem('Allowance', 'If you would gain 1 Happiness, instead gain 4 Money (toggle)', 400),
+    'allowance':  new StoreItem('Allowance', 'Generate money instead of happiness (toggle)', 400),
     'bike':       new StoreItem('Bike', '+100 Happiness per second', 400),
     'teenager':   new StoreItem('Become a Teenager', 'Level up!', 400, (prevState) => { return { level: 3 } }),
   },

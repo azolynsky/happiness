@@ -14,7 +14,7 @@ export default class App extends React.PureComponent {
   constructor() {
     super()
     this.state = {
-      happiness: 660,
+      happiness: 1060,
       money: 0,
       lifetimeHappiness: 0,
       fps: 60,
@@ -81,7 +81,7 @@ export default class App extends React.PureComponent {
 
     // --REPLACEMENT EFFECTS--
     if (this.state.allowanceToggleOn){
-      moneyPerClick = happinessPerClick * 4
+      moneyPerClick += happinessPerClick * .25
       happinessPerClick = 0
     }
 
@@ -128,7 +128,10 @@ export default class App extends React.PureComponent {
     }
 
     // --REPLACEMENT EFFECTS--
-
+    if (this.state.allowanceToggleOn){
+      moneyPerSecond += happinessPerSecond * .25
+      happinessPerSecond = 0
+    }
 
     // --COMMIT WORK--
     this.setState((prevState, props) => ({

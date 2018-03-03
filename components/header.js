@@ -3,16 +3,18 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 export default class Header extends React.PureComponent {
   render () {
+    let moneyHeader = this.props.money > 0 ? (
+      <Text style={styles.textWrapper}>
+        <Text style={styles.label}>${this.props.money}</Text>
+      </Text>) : null
+
     return (
       <TouchableOpacity onPress={this.props.onPressHappinessButton} style={{width: '100%'}}>
         <Text style={styles.textWrapper}>
           <Text style={styles.header}>{this.props.happiness}</Text>
           <Text style={styles.label}>🙂</Text>
         </Text>
-        <Text style={styles.textWrapper}>
-          <Text style={styles.label}>$</Text>
-          <Text style={styles.header}>{this.props.money}</Text>
-        </Text>
+        {moneyHeader}
       </TouchableOpacity>
     )
   }
