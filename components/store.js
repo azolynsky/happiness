@@ -8,8 +8,8 @@ export default class Store extends React.Component {
       if (!!nextProps.items[key] == false)
         return true
 
-      let oldCanAfford = this.props.items[key].cost() <= this.props.happiness
-      let newCanAfford = nextProps.items[key].cost() <= nextProps.happiness
+      let oldCanAfford = this.props.items[key].happinessCost <= this.props.happiness && this.props.items[key].moneyCost <= this.props.money
+      let newCanAfford = nextProps.items[key].happinessCost <= nextProps.happiness && nextProps.items[key].moneyCost <= nextProps.money
 
       if (newCanAfford != oldCanAfford)
         return true
@@ -19,7 +19,7 @@ export default class Store extends React.Component {
   }
 
   buyButtonColor = (item) => {
-    return item.cost() <= this.props.happiness? '#000' : '#ccc'
+    return item.happinessCost <= this.props.happiness && item.moneyCost <= this.props.money ? '#000' : '#ccc'
   }
 
   buyPressed = (key) => {
@@ -31,9 +31,12 @@ export default class Store extends React.Component {
 
     for (let key in this.props.items) {
       let item = this.props.items[key]
+      let label = item.happinessCost > 0 ? `${item.happinessCost} 🙂` : ''
+      label += item.moneyCost > 0 ? `${item.moneyCost} 💵` : ''
+
       store.push(
         <TouchableOpacity key={key} onPress={() => this.buyPressed(key)} style={{alignItems:'center'}}>
-          <Text style={{fontSize: 20, fontWeight:'bold', color: this.buyButtonColor(item)}}>{item.cost()} 🙂 {item.name}</Text>
+          <Text style={{fontSize: 20, fontWeight:'bold', color: this.buyButtonColor(item)}}>{label}: {item.name}</Text>
           <Text style={{color: this.buyButtonColor(item)}}>{item.description}</Text>
         </TouchableOpacity>
       )

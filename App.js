@@ -14,8 +14,8 @@ export default class App extends React.PureComponent {
   constructor() {
     super()
     this.state = {
-      happiness: 1060,
-      money: 0,
+      happiness: 11060,
+      money: 900,
       lifetimeHappiness: 0,
       fps: 60,
       totalTime: 300, // (in seconds)
@@ -34,8 +34,7 @@ export default class App extends React.PureComponent {
 
   buyItem = (key) => {
     let  item = this.state.items[this.state.level][key]
-    let cost = item.cost()
-    if (cost > this.state.happiness) return
+    if (item.happinessCost > this.state.happiness || item.moneyCost > this.state.money) return
 
     this.setState((prevState) => {
       return item.singletonFunction(prevState)
@@ -46,7 +45,8 @@ export default class App extends React.PureComponent {
       newStateItems[this.state.level][key].owned++
       return {
         items: newStateItems,
-        happiness: prevState.happiness - cost
+        happiness: prevState.happiness - item.happinessCost,
+        money: prevState.money - item.moneyCost
       }
     })
   }
@@ -107,8 +107,8 @@ export default class App extends React.PureComponent {
     }
 
     //level 2
-    //bike +100
-    happinessPerSecond += 100 * items[2].bike.owned
+    //bike +10
+    happinessPerSecond += 10 * items[2].bike.owned
 
     //level 3
     //girlfriend +1000
@@ -176,7 +176,7 @@ export default class App extends React.PureComponent {
         <PurchasedItems allowanceToggleValue={this.state.allowanceToggleOn} allowanceToggleCallback={this.setAllowanceToggleValue} items={pickBy({...this.state.items[0], ...this.state.items[1], ...this.state.items[2], ...this.state.items[3]}, (i) => {return i.owned > 0} )} />
         <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)} money={Math.round(this.state.money)} />
         <EventMessage message={this.state.eventMessage(this.state)} />
-        <Store items={pickBy(this.state.items[this.state.level], (i) => {return i.owned === 0} )} happiness={this.state.happiness} buyItem={this.buyItem} />
+        <Store items={pickBy(this.state.items[this.state.level], (i) => {return i.owned === 0} )} happiness={this.state.happiness} money={this.state.money} buyItem={this.buyItem} />
       </View>
     )
   }

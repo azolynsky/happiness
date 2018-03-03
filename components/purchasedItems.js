@@ -4,11 +4,11 @@ import { StyleSheet, Switch, Text, View } from 'react-native'
 
 export default class PurchasedItems extends React.PureComponent {
   render () {
-    let items = ''
+    let items = []
     let controls = []
 
     _.forEach(this.props.items, (item) => {
-      items += item.icon
+      items.push(<Text>{item.icon}: {item.description}</Text>)
     })
 
     if (!!this.props.items['allowance']) {
@@ -17,9 +17,7 @@ export default class PurchasedItems extends React.PureComponent {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>
-          {items}
-        </Text>
+        {items}
         {controls}
       </View>
     )
