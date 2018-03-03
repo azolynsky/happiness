@@ -52,7 +52,7 @@ export default class App extends React.PureComponent {
   }
 
   onPressHappinessButton = () => {
-    let happinessPerClick = 1, moneyPerClick = 1
+    let happinessPerClick = 1, moneyPerClick = 0
     let items = this.state.items
 
     // --ADDERS--
@@ -80,6 +80,10 @@ export default class App extends React.PureComponent {
     }
 
     // --REPLACEMENT EFFECTS--
+    if (this.state.allowanceToggleOn){
+      moneyPerClick = happinessPerClick * 4
+      happinessPerClick = 0
+    }
 
     // --COMMIT WORK--
     this.setState((prevState, props) => ({
@@ -167,7 +171,7 @@ export default class App extends React.PureComponent {
           <ProgressViewIOS progressTintColor='#aa0000' progress={this.state.timeProgressedPercentage()}></ProgressViewIOS>
         </View> */}
         <PurchasedItems allowanceToggleValue={this.state.allowanceToggleOn} allowanceToggleCallback={this.setAllowanceToggleValue} items={pickBy({...this.state.items[0], ...this.state.items[1], ...this.state.items[2], ...this.state.items[3]}, (i) => {return i.owned > 0} )} />
-        <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)} />
+        <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)} money={Math.round(this.state.money)} />
         <EventMessage message={this.state.eventMessage(this.state)} />
         <Store items={pickBy(this.state.items[this.state.level], (i) => {return i.owned === 0} )} happiness={this.state.happiness} buyItem={this.buyItem} />
       </View>
