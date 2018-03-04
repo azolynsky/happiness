@@ -174,8 +174,7 @@ export default class App extends React.PureComponent {
           <ProgressViewIOS progressTintColor='#aa0000' progress={this.state.timeProgressedPercentage()}></ProgressViewIOS>
         </View> */}
         <PurchasedItems allowanceToggleValue={this.state.allowanceToggleOn} allowanceToggleCallback={this.setAllowanceToggleValue} items={pickBy({...this.state.items[0], ...this.state.items[1], ...this.state.items[2], ...this.state.items[3]}, (i) => {return i.owned > 0} )} />
-        <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} happiness={Math.round(this.state.happiness)} money={Math.round(this.state.money)} />
-        <EventMessage message={this.state.eventMessage(this.state)} />
+        <Header style={{flex: 1}} onPressHappinessButton={this.onPressHappinessButton} animationExpiration={20000} eventMessage={this.state.eventMessage(this.state)} happiness={Math.round(this.state.happiness)} money={Math.round(this.state.money)} />
         <Store items={pickBy(this.state.items[this.state.level], (i) => {return i.owned === 0} )} happiness={this.state.happiness} money={this.state.money} buyItem={this.buyItem} />
       </View>
     )

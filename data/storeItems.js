@@ -19,14 +19,14 @@ export default items = [
     'school':     new StoreItem('Go to School', 'Level up!', 3000, 0, '🏫', (prevState) => { return { level: 2 } }),
   },
   {
-    'allowance':  new StoreItem('Allowance', 'Generate money instead of happiness (toggle)', 3000, 0),
+    'allowance':  new StoreItem('Allowance', 'Generate money instead of happiness (toggle)', 3000, 0, '💵'),
     // 'candy':      new StoreItem('Candy', '4x Happiness per click for 1 hour', 400, '🍭'),
-    'bike':       new StoreItem('Bike', '+10 Happiness per second', 0, 1000),
-    'teenager':   new StoreItem('Become a Teenager', 'Level up!', 400, 0, (prevState) => { return { level: 3 } }),
+    'bike':       new StoreItem('Bike', '+10 Happiness per second', 0, 1000, '🚲'),
+    'teenager':   new StoreItem('Become a Teenager', 'Level up!', 400, 0, '👱‍', (prevState) => { return { level: 3 } }),
   },
   {
     'firstJob':   new StoreItem('First Job', 'Clicking only gets you Money now', 400),
-    'girlfriend': new StoreItem('Girlfriend', '+10 Happiness per second', 400),
+    'girlfriend': new StoreItem('Girlfriend', '+100 Happiness per second', 400),
     'car':        new StoreItem('Car', 'For every 10 Money you spend, gain 1 Happiness per second', 400),
     'college':    new StoreItem('Go to College', 'Level up!', 400, (prevState) => { return { level: 4 } }),
   },
