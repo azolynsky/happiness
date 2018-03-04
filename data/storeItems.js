@@ -5,10 +5,10 @@ import { cloneDeep, findLast, flatten, forEach, map, mapValues, sumBy } from 'lo
 export default items = [
   {
     'pacifier':   new StoreItem('Pacifier', '+1 Happiness/sec', 10, 0, '👶'),
-    'blankie':    new StoreItem('Blankie', '+2 Happiness/sec at night', 100, 0, '🌜'),
-    'bottle':     new StoreItem('Bottle', 'Lowers cost to be a Big Kid', 200, 0, '🍼', (prevState) => {
+    'blankie':    new StoreItem('Blankie', '+2 Happiness/sec', 100, 0, '🌜'),
+    'bottle':     new StoreItem('Bottle', 'Lowers cost to be a Big Kid', 150, 0, '🍼', (prevState) => {
       let newStateItems = map(prevState.items, cloneDeep)
-      newStateItems[0]['bigKid'].baseCost = 50
+      newStateItems[0]['bigKid'].happinessCost = 50
       return { items: newStateItems }
     }),
     'bigKid':     new StoreItem('Be a Big Kid', 'Level up!', 3000, 0, '🧒', (prevState) => { return { level: 1 } }),
@@ -22,12 +22,12 @@ export default items = [
     'allowance':  new StoreItem('Allowance', 'Generate money instead of happiness (toggle)', 3000, 0, '💵'),
     // 'candy':      new StoreItem('Candy', '4x Happiness per click for 1 hour', 400, '🍭'),
     'bike':       new StoreItem('Bike', '+10 Happiness per second', 0, 1000, '🚲'),
-    'teenager':   new StoreItem('Become a Teenager', 'Level up!', 400, 0, '👱‍', (prevState) => { return { level: 3 } }),
+    'teenager':   new StoreItem('Become a Teenager', 'Level up!', 4000, 0, '👱‍', (prevState) => { return { level: 3 } }),
   },
   {
-    'firstJob':   new StoreItem('First Job', 'Clicking only gets you Money now', 400),
-    'girlfriend': new StoreItem('Girlfriend', '+100 Happiness per second', 400),
-    'car':        new StoreItem('Car', 'For every 10 Money you spend, gain 1 Happiness per second', 400),
+    'girlfriend': new StoreItem('Girlfriend', '+100 Happiness per second', 6000),
+    'firstJob':   new StoreItem('First Job', 'Clicking only gets you Money now', 60000),
+    'car':        new StoreItem('Car', '+100 Happiness per second', 400),
     'college':    new StoreItem('Go to College', 'Level up!', 400, (prevState) => { return { level: 4 } }),
   },
   {

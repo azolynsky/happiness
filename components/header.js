@@ -39,7 +39,7 @@ export default class Header extends React.PureComponent {
     })
 
     emojiAnimations = map(emojiAnimations, (m) => (
-      <Text style={{ position: 'absolute', left: `${m.left}%`, top: `${m.top}%`, backgroundColor: 'transparent', opacity: .5 }}>{m.image}</Text>
+      <Text style={{ position: 'absolute', left: `${m.left}%`, backgroundColor: 'transparent' }}>{m.image}</Text>
     ))
 
     return (
@@ -49,10 +49,10 @@ export default class Header extends React.PureComponent {
           <Text style={styles.label}>🙂</Text>
         </Text>
         {moneyHeader}
-        <View style={{width:'100%'}}>
+        <View style={{width:'100%', height: 10}}>
           {emojiAnimations}
-          <EventMessage message={this.props.eventMessage} />
         </View>
+        <EventMessage message={this.props.eventMessage} />
       </TouchableOpacity>
     )
   }

@@ -27,8 +27,10 @@ export default class PurchasedItems extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     width: '100%',
-    margin: 30,
+    marginTop: 30,
+    alignItems: 'flex-end'
     // backgroundColor: 'yellow',
   },
   text: {
