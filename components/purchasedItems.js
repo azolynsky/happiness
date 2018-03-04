@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
-import { StyleSheet, Switch, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Switch, Text, View } from 'react-native'
 
 export default class PurchasedItems extends React.PureComponent {
   render () {
@@ -16,10 +16,10 @@ export default class PurchasedItems extends React.PureComponent {
     }
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {items}
         {controls}
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -27,8 +27,8 @@ export default class PurchasedItems extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: 250,
-    paddingTop: 30,
+    width: '100%',
+    padding: 30,
     // backgroundColor: 'yellow',
   },
   text: {
