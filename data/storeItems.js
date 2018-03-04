@@ -15,11 +15,11 @@ export default items = [
   },
   {
     'toys':       new StoreItem('Toys', '+2 Happiness per click', 300, 0, '🚂'),
-    'friend':     new StoreItem('Make a Friend', 'Double Happiness per click', 1500, 0, '👫'),
-    'school':     new StoreItem('Go to School', 'Level up!', 3000, 0, '🏫', (prevState) => { return { level: 2 } }),
+    'friend':     new StoreItem('Make a Friend', 'Double Happiness per click', 1000, 0, '👫'),
+    'school':     new StoreItem('Go to School', 'Level up!', 1500, 0, '🏫', (prevState) => { return { level: 2 } }),
   },
   {
-    'allowance':  new StoreItem('Allowance', 'Generate money instead of happiness (toggle)', 3000, 0, '💵'),
+    'allowance':  new StoreItem('Allowance', 'Generate money instead of happiness (toggle)', 2000, 0, '💵'),
     // 'candy':      new StoreItem('Candy', '4x Happiness per click for 1 hour', 400, '🍭'),
     'bike':       new StoreItem('Bike', '+10 Happiness per second', 0, 1000, '🚲'),
     'teenager':   new StoreItem('Become a Teenager', 'Level up!', 4000, 0, '👱‍', (prevState) => { return { level: 3 } }),

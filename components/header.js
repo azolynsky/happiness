@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import { filter, map } from 'lodash'
 import EventMessage from './eventMessage'
 
@@ -12,17 +12,17 @@ export default class Header extends React.PureComponent {
   }
 
   onPressHappinessButton = () => {
-    this.setState((prevState, props) => {
-      let newEmojiArray = filter(prevState.emojiAnimations, (m) => {
-        return Date.now() - m.added < this.props.animationExpiration
-      })
-      let left = Math.floor((Math.random() * 95) + 1)
-      let top = Math.floor((Math.random() * 75) + 1)
-      newEmojiArray.push({image: '🙂', left: left, top: top, added: Date.now()})
-      return {
-        emojiAnimations: newEmojiArray
-      }
-    })
+    // this.setState((prevState, props) => {
+    //   let newEmojiArray = filter(prevState.emojiAnimations, (m) => {
+    //     return Date.now() - m.added < this.props.animationExpiration
+    //   })
+    //   let left = Math.floor((Math.random() * 95) + 1)
+    //   let top = Math.floor((Math.random() * 75) + 1)
+    //   newEmojiArray.push({image: '🙂', left: left, top: top, added: Date.now()})
+    //   return {
+    //     emojiAnimations: newEmojiArray
+    //   }
+    // })
     this.props.onPressHappinessButton()
   }
 
@@ -34,26 +34,28 @@ export default class Header extends React.PureComponent {
       </Text>
     ) : null
 
-    let emojiAnimations =  filter(this.state.emojiAnimations, (m) => {
-      return Date.now() - m.added < this.props.animationExpiration
-    })
+    // let emojiAnimations =  filter(this.state.emojiAnimations, (m) => {
+    //   return Date.now() - m.added < this.props.animationExpiration
+    // })
 
-    emojiAnimations = map(emojiAnimations, (m) => (
-      <Text style={{ position: 'absolute', left: `${m.left}%`, backgroundColor: 'transparent' }}>{m.image}</Text>
-    ))
+    // emojiAnimations = map(emojiAnimations, (m) => (
+    //   <Text style={{ position: 'absolute', left: `${m.left}%`, backgroundColor: 'transparent' }}>{m.image}</Text>
+    // ))
 
     return (
-      <TouchableOpacity onPress={this.onPressHappinessButton} style={{width: '100%'}}>
-        <Text style={styles.textWrapper}>
-          <Text style={styles.header}>{this.props.happiness}</Text>
-          <Text style={styles.label}>🙂</Text>
-        </Text>
-        {moneyHeader}
-        <View style={{width:'100%', height: 10}}>
-          {emojiAnimations}
+      <TouchableWithoutFeedback onPress={this.onPressHappinessButton} style={{width: '100%'}}>
+        <View style={{width: '100%'}}>
+          <Text style={styles.textWrapper}>
+            <Text style={styles.header}>{this.props.happiness}</Text>
+            <Text style={styles.label}>🙂</Text>
+          </Text>
+          {moneyHeader}
+          {/* <View style={{width:'100%', height: 10}}>
+            {emojiAnimations}
+          </View> */}
+          <EventMessage message={this.props.eventMessage} />
         </View>
-        <EventMessage message={this.props.eventMessage} />
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     )
   }
 }

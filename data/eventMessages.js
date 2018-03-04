@@ -2,8 +2,8 @@ import EventMessage from '../models/eventMessage'
 
 export default [
   // level 0
-  new EventMessage("Congratulations, and welcome to the Pursuit of Happiness!", (state) => true),
-  new EventMessage("You're not very happy. Try tapping that 0.", (state) => state.happiness === 0 && state.elapsedTime > 3),
+  new EventMessage("You've just been born! Congratulations, and welcome to the Pursuit of Happiness!", (state) => true),
+  new EventMessage("You're not very happy. Try tapping that 0.", (state) => state.happiness === 0 && state.elapsedTime > 4),
   new EventMessage("You're becoming happier!", (state) => state.happiness > 0),
   new EventMessage("Look a pacifier! I bet that would make you really happy. You should buy it.", (state) => state.items[0]['pacifier'].owned === 0 && state.happiness >= state.items[0]['pacifier'].happinessCost),
   new EventMessage("The Pacifier is making you happy!", (state) => state.items[0]['pacifier'].owned === 1),
